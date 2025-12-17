@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="bot.css">
+       
+    </head>
+
+     <body>
+        <h1 id="id">
+            MAMU BOT
+        </h1>
+        <p id="para">this is GEN AI BOT </p>
+         <script>
+            var name="mamu bot";
+            console.log(name);
+            
+            function change(x){
+                return x
+            }
+            let x1=change("my name is nagaraj")
+            console.log(x1);
+
+            let printx=()=>{
+                document.write("hello world"+" ")
+            }
+            printx();
+
+
+            alert("welcome to mamu bot ")
+            let name1=prompt("enter your name")
+            document.write("hello "+name1);
+
+            let x2=document.getElementById("id")
+            console.log(x2);
+
+
+            function paramodify(){
+                let x=document.getElementById("para")
+                if(x){
+                    x.textContent="this is modified paragraph" ;
+                }
+                else{
+                    console.log("element not found");
+                }
+            }
+            paramodify();
+        </script>
+    </body>
+    <footer>
+        <form action="lab1.html" method="get" id="search" >
+            <input type="text" placeholder="search something" >
+        </form>
+    </footer> 
+</html>

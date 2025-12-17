@@ -1,0 +1,19 @@
+
+*{
+    background-color: black;
+
+    color: white;
+
+}
+#id{
+    color:blue;
+    text-align:center;
+}
+#search {
+  display: flex;
+  justify-content:center; /* moves contents to the right */
+  align-items: center;       /* vertically centers the input inside the form */
+}
+#para{
+    text-align: center;
+}
