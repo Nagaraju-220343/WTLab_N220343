@@ -23,7 +23,7 @@
 }
 #nav_2{
     padding-top:25px;
-    padding-left:50px;
+   
     display:flex;
     align-items:center;
     gap:50px;
@@ -34,4 +34,10 @@
 span{
     border:"2px solid black";
 
+}
+.audio_player{
+    
+ border:"2px solid voilet";
+ margin:10px 10px 10px 10px;
+ background-image:url("logo2.avif") ;
 }
