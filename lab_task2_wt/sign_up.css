@@ -1,0 +1,85 @@
+
+*{
+    background-color: #f4f7fb;
+}
+.login_div{
+    height:400px;
+    width:400px;
+    border:1.5px solid white;
+    position:relative;
+    left:450px;
+    top:100px;
+    background-color: white;
+
+}
+#name_tab1{
+    height:50px;
+    width:200px;
+    position:absolute;
+    top:100px;
+    left:100px;
+}
+#password_tab1{
+      height:50px;
+    width:200px;
+    position:absolute;
+    top:200px;
+    left:100px;
+}
+#login_button1{
+    height:50px;
+    width:200px;
+    position:absolute;
+    left:100px;
+    top:250px;
+    
+}
+#name_tab{
+    height:25px;
+    border:1.5px solid black;
+    border-radius:4.5px;
+}
+#password_tab{
+    height:25px;
+    border:1.5px solid black;
+    border-radius:4.5px;
+}
+#login_button{
+    
+    border:1.5px solid black;
+    border-radius:4.5px;
+    width:175px;
+    background-color:#3b5998;
+    color:white;
+    height:25px;
+}
+#login_heading{
+    font-style: italic;
+    font-weight: bold;
+    position:absolute;
+    left:90px;
+    top:20px;
+
+}
+#login_button:hover{
+    background-color:#1f3c88;
+    color:white;
+
+}
+
+#Email_tab1 {
+    height:50px;
+    width:200px;
+    position:absolute;
+    top:150px;
+    left:100px;
+}
+
+#Email_tab {
+    height:25px;
+    border:1.5px solid black;
+    border-radius:4.5px;
+   
+}
+
+
