@@ -7,13 +7,32 @@
     <body>
         <div class ="login_div">
             <h2 id="login_heading">CREATE ACCOUNT </h2>
+
+            <!-- FORM ADDED -->
+            <form action="register.php" method="POST">
+
             <div class="inner_div">
-              <div id="name_tab1"> <input type="text" placeholder=" User Name " id="name_tab"></div> 
-              <div id="Email_tab1"> <input type="email" placeholder="E-mail" id="Email_tab"></div>
-              <div id="password_tab1"> <input type="password" placeholder="Password" id="password_tab"></div>
-               <div id="login_button1"> <button id="login_button">Sign Up</button></div> 
+              <div id="name_tab1"> 
+                <input type="text" placeholder=" User Name " id="name_tab" name="username">
+              </div> 
+
+              <div id="Email_tab1"> 
+                <input type="email" placeholder="E-mail" id="Email_tab" name="email">
+              </div>
+
+              <div id="password_tab1"> 
+                <input type="password" placeholder="Password" id="password_tab" name="password">
+              </div>
+
+               <div id="login_button1"> 
+                <button id="login_button" type="submit">Sign Up</button>
+               </div> 
              
             </div>
+
+            </form>
+            <!-- FORM END -->
+
         </div>
     </body>
 </html>
