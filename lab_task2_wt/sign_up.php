@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Encrypt password
-    $hashed = password_hash($password, PASSWORD_DEFAULT);
+ 
 
     // Check duplicate email
     $check = "SELECT id FROM users WHERE email='$email'";
@@ -27,11 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insert user
     $sql = "INSERT INTO users (username, email, password)
-            VALUES ('$username', '$email', '$hashed')";
+            VALUES ('$username', '$email', '$password')";
 
     if (mysqli_query($conn, $sql)) {
-        echo "Registration Successful ✅";
-        // header("Location: login.html");
+        echo "Registration Successful";
+        header("Location: login.html");
     } else {
         echo "Error occurred!";
     }
