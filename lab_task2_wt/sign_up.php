@@ -1,11 +1,11 @@
 <?php
-include "db.php";
+require __DIR__ . '/vendor/autoload.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $username = $_POST["username"];
-    $email    = $_POST["email"];
-    $password = $_POST["password"];
+    $username = $_POST["username"] ?? '';
+    $email    = $_POST["email"] ?? '';
+    $password = $_POST["password"] ?? '';
 
     // Validation
     if (empty($username) || empty($email) || empty($password)) {
@@ -13,27 +13,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Encrypt password
- 
+    try {
+        // Connect to MongoDB
+        $client = new MongoDB\Client("mongodb://localhost:27017");
 
-    // Check duplicate email
-    $check = "SELECT id FROM users WHERE email='$email'";
-    $result = mysqli_query($conn, $check);
+        // Select DB and Collection
+        $collection = $client->cordmanDB->cordman;
 
-    if (mysqli_num_rows($result) > 0) {
-        echo "Email already exists!";
-        exit();
-    }
+        // Check duplicate email
+        $existingUser = $collection->findOne(['email' => $email]);
 
-    // Insert user
-    $sql = "INSERT INTO users (username, email, password)
-            VALUES ('$username', '$email', '$password')";
+        if ($existingUser) {
+            echo "Email already exists!!!!!!    ";
+            exit();
+        }
 
-    if (mysqli_query($conn, $sql)) {
-        echo "Registration Successful";
-        header("Location: login.html");
-    } else {
-        echo "Error occurred!";
+        // Insert user (plain password)
+        $insertResult = $collection->insertOne([
+            'username' => $username,
+            'email'    => $email,
+            'password' => $password,
+            'created_at' => new MongoDB\BSON\UTCDateTime()
+        ]);
+
+        if ($insertResult->getInsertedCount() > 0) {
+            header("Location: login_page.html");
+            exit();
+        } else {
+            echo "Error occurred!";
+        }
+
+    } catch (Exception $e) {
+        echo "Database Error: " . $e->getMessage();
     }
 }
 ?>
