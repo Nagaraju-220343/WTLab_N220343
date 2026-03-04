@@ -58,11 +58,7 @@
 
 //file creation 
 
-$file = fopen("uploads/new.txt","x");
+$file = fopen("uploads/next.txt","x+");
 fwrite($file,"New file created");
 fclose($file);
-
-
-
-
 ?>

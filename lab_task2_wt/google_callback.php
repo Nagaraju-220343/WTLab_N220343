@@ -1,94 +1,51 @@
 <?php
+require_once 'vendor/autoload.php';
 session_start();
+include 'db.php'; // your existing database connection
 
-// Simple .env parser
-function loadEnv($path) {
-    if (!file_exists($path)) return;
-    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($lines as $line) {
-        if (strpos(trim($line), '#') === 0) continue;
-        if (strpos($line, '=') === false) continue;
-        list($name, $value) = explode('=', $line, 2);
-        $_ENV[trim($name)] = trim($value);
-    }
-}
+$client = new Google_Client();
+$client->setClientId('CLIENT_ID');
+$client->setClientSecret('CLIENT_SECRET');
+$client->setRedirectUri('http://localhost/yourproject/google_callback.php');
 
-loadEnv(__DIR__ . '/.env');
+$client->addScope("email");
+$client->addScope("profile");
 
 if (isset($_GET['code'])) {
-    $code = $_GET['code'];
-    $clientId = $_ENV['CLIENT_ID'];
-    $clientSecret = $_ENV['CLIENT_SECRET'];
-    $redirectUri = 'http://localhost/WT_LABSS/lab_task2_wt/google_callback.php';
 
-    // 1. Exchange Code for Token
-    $url = 'https://oauth2.googleapis.com/token';
-    $postData = [
-        'code' => $code,
-        'client_id' => $clientId,
-        'client_secret' => $clientSecret,
-        'redirect_uri' => $redirectUri,
-        'grant_type' => 'authorization_code'
-    ];
+    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    $client->setAccessToken($token['access_token']);
 
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
-    $response = curl_exec($ch);
-    $data = json_decode($response, true);
-    curl_close($ch);
+    $google_service = new Google_Service_Oauth2($client);
+    $data = $google_service->userinfo->get();
 
-    if (isset($data['id_token'])) {
-        // 2. Get User Info using the access token (simpler than manual JWT decoding)
-        $userInfoUrl = 'https://www.googleapis.com/oauth2/v3/userinfo?access_token=' . $data['access_token'];
-        $userInfoResponse = file_get_contents($userInfoUrl);
-        $userProfile = json_decode($userInfoResponse, true);
+    $email = $data->email;
+    $name  = $data->name;
+    $photo = $data->picture;
 
-        if (isset($userProfile['email'])) {
-            $email = $userProfile['email'];
-            $name  = $userProfile['name'];
-            $photo = $userProfile['picture'] ?? '';
+    // 🔴 CHECK USER EXISTS
+    $query = mysqli_query($conn, "SELECT * FROM users WHERE email='$email'");
 
-            // 3. Database Operations (Using MongoDB)
-            // We use the existing vendor autoload for MongoDB
-            if (file_exists('vendor/autoload.php')) {
-                require 'vendor/autoload.php';
-                try {
-                    $mClient = new MongoDB\Client("mongodb://localhost:27017");
-                    $collection = $mClient->cordmanDB->cordman;
+    if (mysqli_num_rows($query) > 0) {
 
-                    $user = $collection->findOne(['email' => $email]);
+        // LOGIN EXISTING USER
+        $user = mysqli_fetch_assoc($query);
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_email'] = $user['email'];
 
-                    if (!$user) {
-                        $username = strtolower(str_replace(' ', '', $name)) . rand(10, 99);
-                        $collection->insertOne([
-                            'username' => $username,
-                            'email'    => $email,
-                            'auth_type' => 'google',
-                            'photo' => $photo,
-                            'created_at' => new MongoDB\BSON\UTCDateTime()
-                        ]);
-                        $_SESSION['username'] = $username;
-                    } else {
-                        $_SESSION['username'] = $user['username'];
-                    }
-
-                    $_SESSION['user_email'] = $email;
-                    header("Location: home_page.html");
-                    exit();
-
-                } catch (Exception $e) {
-                    die("Database Error: " . $e->getMessage());
-                }
-            } else {
-                die("Vendor folder not found. Please ensure MongoDB library is available.");
-            }
-        }
     } else {
-        die("Failed to obtain access token. Error: " . ($data['error_description'] ?? 'Unknown error'));
+
+        // SIGNUP NEW USER
+        mysqli_query($conn,
+        "INSERT INTO users(name,email,photo,auth_type)
+         VALUES('$name','$email','$photo','google')");
+
+        $user_id = mysqli_insert_id($conn);
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['user_email'] = $email;
     }
-} else {
-    header("Location: login_page.html");
+
+    header("Location: home_page.html");
     exit();
 }
 ?>
