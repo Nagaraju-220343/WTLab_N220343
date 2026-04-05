@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+ // TRAVERSING UP
+  //   $(document).ready(function(){
+  //     $("#b1").click(function(){
+  //       // var k=$("#l").parent().text()
+  //       // alert(k)
+  //       $("div").parent().css("color","Red")
+  //     })
+  //     $("#b2").click(function(){
+  //       $("#l").parents("ul").css("color","Yellow") //parameter ul is optional
+  //     })
+  //     $("#b3").click(function(){
+  //       $("#a").parentsUntil("li").css("color","orange") //parameter li is compulsory
+  //     })
+  //   })
+  // //TRAVERSING DOWN
+  // $(document).ready(function(){
+  //   // $("#b1").click(function(){
+  //   //   $("li").children("p").css("color","red")//parameter is optional
+  //   // })
+  //   $("#b2").click(function(){
+  //     $("li").find("p").css("color","yellow")
+  //   })
+  //   $("#b3").click(function(){
+  //     $("li").find("*").css("color","pink")
+  //   })
+  //   $("#b1").click(function(){
+  //     $("#ul").children().each(function(){
+  //       var l=$(this).text();
+  //       alert(l);
+  //     })
+  //   })
+  // })
+  //TRAVERSING SIDEWAYS
+  $(document).ready(function(){
+    $("#b1").click(function(){
+      $("li").siblings().each(function(){
+        var k=$(this).text();
+        alert(k)
+      })
+    })
+    $("#b2").click(function(){
+      $("body").siblings().each(function(){
+        var k=$(this).text();
+        alert(k)
+      })
+    })
+    $("#b3").click(function(){
+    //  alert($("#b3").next().text()) 
+    //  alert($("#b3").nextAll().text())
+      alert($('#b3').nextUntil('ul').text())
+    })
+  })
+
+  </script>
+</head>
+<body>
+  <h1>JQuery DOM Example</h1>
+  <button id="b1">Click here</button>
+  <button id="b2">Click here </button>
+  <button id="b3">Click here </button>
+  <p>Outer Para</p>
+  <ul>
+    <li>CSE</li>
+    <li>
+      <p>Inner paragraph</p>
+      <div>
+        <a id="a" href="#">Link</a>
+        jaya
+        <p id="l">Inside div paragraph</p>
+      </div>
+    </li>
+    <li>ECE</li>
+  </ul>
+
+
+</body>
+</html>

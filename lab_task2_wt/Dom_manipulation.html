@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <style type="text/css">
+      .k{
+        color :violet;
+        background-color:yellow;
+      }
+    </style>
+  <script>
+    $(document).ready(function(){
+      $("#b1").click(function(){
+       alert($("p").text())
+       $("p").text("Nagaraju Guntreddi")
+      
+    })
+    $("#b2").click(function(){
+      alert($("p").html())
+      $("p").html("<b>Nagaraju</b>")
+    })
+    $("#b3").click(function(){
+      alert($("#i").val())
+      $("#i").val("Nagaraju Guntreddi")
+    })
+    $("#a1").click(function(){
+      $("a").attr({"href":"https://www.google.com","target":"_blank"})
+      //$("a").attr("target","_blank")
+      alert($("a").attr("href"))
+    })
+    $("#a2").click(function(){
+      $("a").removeAttr("href")
+    })
+//ADD HTML ELEMENTS
+    $("ul").before("<h1>ADD HTML ELEMENTS</h1>")
+    $("ul").after("-------------------X---------------------")
+    $("ul").append("<li>APPEND</li>")
+    $("ul").prepend("<li>PREPEND</li>")
+    //$("#p2").appendTo("#p1")
+    $("#p2").prependTo("#p1")
+    //$("ul").empty();
+    $("ul").detach()
+    //$("p").wrap("<h1>")
+     // $("p").wrapAll("<h1>")
+//CSS PROPERTIES
+    $("#c1").css("color","red")
+   // alert($('#c1').css("background-color"))
+    $("#c2").css({"color":"blue","background-color":"yellow"})
+//CLASSES
+    $("#m").addClass("k");
+    $("#rm").click(function(){
+      $("#m").removeClass("k")
+    })
+    $("#tg").click(function(){
+      $("#m").toggleClass("k")
+    })
+
+
+    })
+    
+  </script>
+</head>
+<body>
+  <h1>ELEMENTS</h1>
+  <p>Nagaraju</p>
+  Name:<input type="text" id="i"><br><br>
+  <button id="b1">Text</button>
+  <button id="b2">Html</button>
+  <button id="b3">Val</button><br>
+
+  <h1>ATTRIBUTES</h1>
+  <a href="#">Link</a><br><br>
+  <button id="a1">Attri</button>
+  <button id="a2">Remove</button><br><br>
+
+
+  <p id="p1">Nagaraju</p>
+  <ul>
+    <li>CSE</li>
+    <li>ECE</li>
+    <li>EEE</li>
+  </ul>
+  <p id="p2">Guntreddi</p>
+
+  <h1 id="c1" style="background-color:blue">CSS Properties</h1>
+  <p id="c2">Paragraph1</p>
+
+  <h1>CLASS</h1>
+  <p id="m" >Class methods</p>
+  <button id="rm">Removeclass</button>
+  <button id="tg">ToggleClass</button>
+
+  
+</body>
+</html>

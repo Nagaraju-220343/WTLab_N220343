@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#b1').click(function(e){
+        $('p').toggle();
+        console.log(e);
+      });
+      $('#b2').click(function(){
+        $('h3').css("color","Red");
+      });
+      $('#b2').dblclick(function(){
+        $('#j').css("color","Pink");
+      });
+      $('#b1').hover(function(){
+        $('h3').css("color","green");
+      });
+      $('#b2').mouseenter(function(){
+        $('.k').css("color","yellow");
+      });
+      $('#b2').mouseleave(function(){
+        $('.k').css("color","red");
+      });
+      // $('#name').focus(function(){
+      //   alert("Cursor focused");
+      // });
+      $('#name').keyup(function(){
+        alert("Keyup function");
+      });
+      // $('#name').blur(function(){
+      //   alert("Cursor defocused");
+      // });
+      $('#gender').change(function(){
+        confirm("Gender changed");
+      });
+      $('input#s').submit(function(){
+        confirm("Are u sure to submit?");
+      });
+      $('#b1').on({
+        mouseenter:function(){
+          alert("Mouse enter");
+        },
+        mouseleave:function(){
+          alert("Mouse leave");
+        },
+      })
+    })
+  </script>
+  </head>
+<body>
+  <form id="form">
+    Name:<input type="text" name="name" id="name">
+    <br>
+    Gender:<select id="gender" name="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+    <br>
+    <input type="submit" value="submit" name="submit" id="s">
+    <br>
+  </form>
+  <h1 id="j">HEADER1</h1>
+  <h2 class="k">HEADER2</h2>
+  <h3>HEADER3</h3>
+  <p>We are dealing with jQuery events</p>
+  <input type="button" value="button" id="b1">
+  <input type="button" value="button"id="b2">
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+    //   $("#n").hide(5000,function(){
+    //   alert("Hide completed");
+    //  });
+    //  $("#n").show(10000,function(){
+    //  alert("Show completed");
+    //   });
+    $("#fo").click(function(){
+      $("#col").fadeOut(5000,function(){
+        alert("FadeOut completed");
+      });
+    });
+    $("#fi").click(function(){
+      $("#col").fadeIn(5000,function(){
+        $("#fi").text("FadeIn completed");
+      });
+    });
+    $("#ft").click(function(){
+      $("#col").fadeToggle(5000,function(){
+        $("#ft").text("FadeToggle completed");
+      });
+    });
+    $("#fto").click(function(){
+      $("#col").fadeTo(5000,0.5,function(){
+        $("#fto").text("FadeTo completed");
+      });
+    });
+    $("#sd").click(function(){
+      $("#col").slideDown(5000,function(){
+        $("#sd").text("SlideDown completed");
+      });
+    });
+    $("#su").click(function(){
+      $("#col").slideUp(5000,function(){
+        $("#su").text("SlideUp completed");
+      });
+    });
+     $("#st").click(function(){
+      $("#col").slideToggle(5000,function(){
+        $("#st").text("SlideToggle completed");
+      });
+    });
+  });
+  </script>
+</head>
+<body>
+  <h1 id="n">Nagaraju</h1>
+  <button id="fo">FadeOut</button>
+  <button id="fi">FadeIn</button>
+  <button id="ft">FadeToggle</button>
+  <button id="fto">FadeTo</button>
+  <div id="col" style="width:200px;height:200px;background-color:Red"></div>
+  <button id="sd">SlideDown</button>
+  <button id="su">SlideUp</button>
+  <button id="st">SlideToggle</button>
+</body>
+</html>
